@@ -1,0 +1,53 @@
+<!-- <app-pre-load></app-pre-load> -->
+
+<app-side-bar></app-side-bar>
+
+<div class="main-container">
+    <div class="pd-ltr-20">
+        <div class="card-box mb-30">
+            <div class="card-body">
+                <div class="row mb-10">
+                    <div class="col-md-6">
+                        <h2 class="h4 pd-20">Destinatarios</h2>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="text-black" for="filter">Buscar</label> 
+                        <input type="text" [(ngModel)]="filter" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn mt-10" (click)="openModal()">
+                            <h5><i class="dw dw-add-user"></i>Agregar</h5>
+                        </button>
+                    </div>
+                </div>
+                <table class="data-table table nowrap">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cuenta Destino</th>
+                            <th>Banco</th>
+                            <th>Transferir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-plus">
+                                rick
+                            </td>
+                            <td>
+                                <h5 class="font-16">Shirt</h5>
+                                by John Doe
+                            </td>
+                            <td>Black</td>
+                            <td><button type="button" class="btn" ><h3><i class="dw dw-reload"></i></h3></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-new-destination #modalNewDestination></app-new-destination>
+<app-new-transfer #modalNewTransfer></app-new-transfer>
+

@@ -1,0 +1,37 @@
+<!-- <app-pre-load></app-pre-load> -->
+
+<app-side-bar></app-side-bar>
+
+<div class="main-container">
+    <div class="pd-ltr-20">
+        <div class="row clearfix">
+            <div class="col-md-12 mb-30">
+                <div class="card card-box">
+                    <div class="card-body">
+                        <h5 class="card-title weight-500">Saldo Disponible </h5>
+                        <h6>${{40000 | numberFormat}}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-30">
+                <div class="card card-box">
+                    <div class="card-body">
+                        <h5 class="card-title weight-500">Déposita dinero en tu Cuenta Corriente </h5>
+                        <form [formGroup]="recharge" (ngSubmit)="onSubmit()" #formDirective="ngForm">
+                            <div class="form-group">
+                                <label>Monto a dépositar</label>
+                                <input type="number" formControlName="ammount" class="form-control" 
+                                [ngClass]="{ 'is-invalid': submitted && f.ammount.errors}" maxlength="10">
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Ingresar" class="btn btn-primary btn-md text-white">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

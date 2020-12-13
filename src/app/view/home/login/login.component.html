@@ -1,0 +1,37 @@
+<section class="site-section bg-light" id="login">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-12 text-center">
+          <h2 class="section-title mb-3">Ingresa a tu cuenta</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-5">
+          <form [formGroup]="login" (ngSubmit)="onSubmit()" #formDirective="ngForm" class="p-5 bg-white">
+            <div class="row form-group">
+              <div class="col-md-12 mb-3 mb-md-0">
+                <label class="text-black" for="fname">Rut</label>
+                <input type="text" formControlName="rut" formatRut class="form-control" 
+                [ngClass]="{ 'is-invalid': submitted && f.rut.errors}" maxlength="15">
+                <div *ngIf="submitted && f.rut.errors">
+                  <div *ngIf="f.rut.errors.maxlength">El máximo de caracteres es 15</div>
+                  <div *ngIf="f.rut.errors.invalidRut">Ingrese un rut válido</div>
+                </div>
+              </div>
+              <div class="col-md-12 mb-3 mb-md-0">
+                <label class="text-black" for="password">Contraseña</label> 
+                <input type="password" formControlName="password" class="form-control" 
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors}" maxlength="10" >
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-12">
+                <a routerLink="/cliente/dashboard" routerLinkActive="active" class="nav-link">Ingresar</a>
+                <input type="submit" value="Ingresar" class="btn btn-primary btn-md text-white">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

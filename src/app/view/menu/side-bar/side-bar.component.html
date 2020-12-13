@@ -1,0 +1,39 @@
+<div class="left-side-bar">
+    <div class="brand-logo">
+        <a href="index.html">
+            <img src="../../../../assets/images/logo_vertical.png" alt="" class="light-logo">
+        </a>
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+            <i class="ion-close-round"></i>
+        </div>
+    </div>
+    <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+            <ul id="accordion-menu">
+                <li class="dropdown">
+                    <a routerLink="/cliente/dashboard" routerLinkActive="active" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Inicio</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-money"></span><span class="mtext">Cuenta</span>
+                    </a>
+                    <ul class="submenu" style="display: block;">
+                        <li><a routerLink="/cliente/cuenta/recargar-saldo" routerLinkActive="active">Recargar de Saldo</a></li>
+                        <li><a routerLink="/cliente/cuenta/retiro-saldo" routerLinkActive="active">Retiro de Saldo</a></li>
+                        <li><a routerLink="/cliente/cuenta/ultimos-movimientos" routerLinkActive="active">Saldos y últimos movimientos</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-right-arrow-8"></span><span class="mtext">Transferencias</span>
+                    </a>
+                    <ul class="submenu" style="display: block;">
+                        <li><a routerLink="/cliente/transferencias" routerLinkActive="active">A terceros</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

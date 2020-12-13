@@ -1,0 +1,53 @@
+<ng-template #modalNewDestination let-d="dismiss">
+    <div class="modal-header">
+      <h3 class="modal-title"> Crear nuevo destinatario </h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()"> 
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="newDestination" (ngSubmit)="onSubmit()" #formDirective="ngForm" class="p-5 bg-white">
+        <div class="row form-group">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <label class="text-black" for="fname">Rut</label>
+            <input type="text" formControlName="rut" formatRut class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && f.rut.errors}" maxlength="15">
+            <div *ngIf="submitted && f.rut.errors">
+              <div *ngIf="f.rut.errors.maxlength">El máximo de caracteres es 15</div>
+              <div *ngIf="f.rut.errors.invalidRut">Ingrese un rut válido</div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3 mb-md-0">
+            <label class="text-black" for="name">Nombre</label> 
+            <input type="text" formControlName="name" class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors}" maxlength="100" >
+          </div>
+          <div class="col-md-6 mb-3 mb-md-0">
+            <label class="text-black" for="account">Número de Cuenta</label> 
+            <input type="number" formControlName="account" class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && f.account.errors}" maxlength="100" >
+          </div>
+          <div class="col-md-6 mb-3 mb-md-0">
+            <label class="text-black" for="bankId">Banco</label> 
+            <select formControlName="bankId" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f.bankId.errors}" >
+              <option value="" disabled selected>Seleccione</option>
+            </select>
+          </div>
+          <div class="col-md-12 mb-3 mb-md-0">
+            <label class="text-black" for="account">Email</label> 
+            <input type="email" formControlName="email" class="form-control" 
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors}" maxlength="100">
+                <div *ngIf="submitted && f.email.errors">
+                  <div *ngIf="f.email.errors.email">Debe ingresar un email válido</div>
+                </div>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-md-12">
+            <input type="submit" value="Registrar" class="btn btn-primary btn-md text-white">
+          </div>
+        </div>
+      </form>
+    </div>
+</ng-template>
