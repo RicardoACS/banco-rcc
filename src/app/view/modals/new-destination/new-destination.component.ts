@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
 })
 export class NewDestinationComponent {
   @ViewChild("modalNewDestination") modalTemplateRef: ElementRef;
-  newDestination:FormGroup;
+  newDestination: FormGroup;
   submitted = false;
   modalInstance: NgbModalRef;
   modal: any;
@@ -24,7 +24,7 @@ export class NewDestinationComponent {
   constructor(
     private _modalService: NgbModal,
     private _myModalSerive: ModalService,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private rutValidator: RutValidator,
   ) {
     this.subscription = this._myModalSerive
@@ -32,17 +32,17 @@ export class NewDestinationComponent {
       .subscribe(msg => {
         switch (msg.action) {
           case "OPEN":
-            this.openModal(msg.data);
+            this.openModal(msg.data, msg.nameModal);
             break;
           case "CLOSE":
             this.closeModal();
             break;
         }
       });
-      this.newDestinationValidator();
+    this.newDestinationValidator();
   }
 
-  newDestinationValidator(){
+  newDestinationValidator() {
     this.newDestination = this.fb.group({
       rut: ['', [Validators.required, Validators.maxLength(15), this.rutValidator]],
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -63,10 +63,11 @@ export class NewDestinationComponent {
     }
   }
 
-  openModal(data: any) {
-    console.log("Hola")
+  openModal(data: any, nameModal: string) {
     this.modal = data;
-    this.modalInstance = this._modalService.open(this.modalTemplateRef, { size: 'lg', backdrop: 'static' });
+    if (nameModal == "modalNewDestination") {
+      this.modalInstance = this._modalService.open(this.modalTemplateRef, { size: 'lg', backdrop: 'static' });
+    }
   }
 
   closeModal() {

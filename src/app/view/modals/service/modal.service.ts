@@ -9,8 +9,8 @@ export class ModalService {
     constructor() { }
 
     // used by the component calling the modal service
-    open(data: any) {
-        this.subject.next({data, action: 'OPEN'});
+    open(data: any, nameModal:string) {
+        this.subject.next({data, nameModal, action: 'OPEN'});
     }
 
     close() {

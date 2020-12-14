@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-8">
                     <h4 class="font-20 weight-500 mb-10 text-capitalize">
-                        Bienvenido <div class="weight-600 font-30 text-blue">Johnny Brown!</div>
+                        Bienvenido <div class="weight-600 font-30 text-blue">{{user.name}}</div>
                     </h4>
                     <p class="font-18 max-width-600">
                         asgasgasgsag
@@ -25,34 +25,16 @@
                     <div class="card-body">
                         <h5 class="card-title weight-500">Resumen de tus productos </h5>
                         <div class="da-card">
-                            <div class="card card-box mb-10">
+                            <div class="card card-box mb-10" *ngFor="let account of dataAccount">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <h5 class="h5 mb-10">Cuenta Corriente</h5>
-                                            <p class="mb-0">15415123156</p>
+                                            <p class="mb-0">{{account.number}}</p>
                                         </div>
                                         <div class="col-md-4">
                                             <h5 class="h5 mb-10">Saldo Disponible</h5>
-                                            <p class="mb-0">$2.435</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5 class="h5 mb-10">Total Disponible</h5>
-                                            <p class="mb-0">$500.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-box">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h5 class="h5 mb-10">Línea de crédito</h5>
-                                            <p class="mb-0">15415123156</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5 class="h5 mb-10">Saldo Disponible</h5>
-                                            <p class="mb-0">$500.000</p>
+                                            <p class="mb-0">${{account.ammount | numberFormat}}</p>
                                         </div>
                                     </div>
                                 </div>

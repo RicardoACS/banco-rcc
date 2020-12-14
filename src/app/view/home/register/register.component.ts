@@ -1,3 +1,4 @@
+import { ApiBankService } from './../../../services/api-bank.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RutValidator } from 'ng9-rut';
@@ -14,16 +15,17 @@ export class RegisterComponent implements OnInit {
   registerUser: FormGroup;
   submitted = false;
 
-  constructor(private fb: FormBuilder, 
-    private rutValidator: RutValidator, 
-    private router: Router) {
-   }
+  constructor(private fb: FormBuilder,
+    private rutValidator: RutValidator,
+    private router: Router,
+    private apiBank: ApiBankService) {
+  }
 
   ngOnInit(): void {
     this.registerUserValidator();
   }
 
-  registerUserValidator(){
+  registerUserValidator() {
     this.registerUser = this.fb.group({
       id: [''],
       rut: ['', [Validators.required, Validators.maxLength(15), this.rutValidator]],
@@ -43,17 +45,20 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    // this.serviceBank.createIser(this.registerUser.value)
-    //   .subscribe((data: HttpErrorResponse) => {
-    //     this.router.navigate(["/login"]);
-    //   },
-    //     (error: HttpErrorResponse) => {
-    //       if (error.error != undefined && error.error != null) {
-    //         this.toastr.showError(null, error.error.message);
-    //       } else {
-    //         this.toastr.showError(null, error.message);
-    //       }
-    //     });
+    this.apiBank.createUser(this.registerUser.value)
+      .subscribe((data: HttpErrorResponse) => {
+        console.log(data["data"]);
+        localStorage.setItem('user', JSON.stringify(data["data"]));
+        this.router.navigate(["/cliente/dashboard/"]);
+      },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+          // if (error.error != undefined && error.error != null) {
+          //   this.toastr.showError(null, error.error.message);
+          // } else {
+          //   this.toastr.showError(null, error.message);
+          // }
+        });
   }
 }
 

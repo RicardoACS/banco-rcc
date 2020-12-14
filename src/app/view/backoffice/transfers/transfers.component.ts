@@ -15,8 +15,8 @@ export class TransfersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openModal(data){
-    this._ModalService.open(data);
+  openModal(data, nameModal){
+    this._ModalService.open(data, nameModal);
   }
 
 }

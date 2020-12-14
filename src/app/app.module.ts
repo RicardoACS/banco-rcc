@@ -1,3 +1,4 @@
+import { ApiBankService } from './services/api-bank.service';
 import { ModalService } from './view/modals/service/modal.service';
 import { DashboardComponent } from './view/backoffice/dashboard/dashboard.component';
 import { AppRoutingModule, routingComponents } from "./app-routing.module";
@@ -23,6 +24,7 @@ import { WithdrawalComponent } from './view/backoffice/account/withdrawal/withdr
 import { NewDestinationComponent } from './view/modals/new-destination/new-destination.component';
 import { NumberFormatPipe } from './utils/number-format.pipe';
 import { NewTransferComponent } from './view/modals/new-transfer/new-transfer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -50,9 +52,10 @@ import { NewTransferComponent } from './view/modals/new-transfer/new-transfer.co
     ReactiveFormsModule,
     NgApexchartsModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [ModalService, NumberFormatPipe],
+  providers: [ModalService, NumberFormatPipe, ApiBankService],
   bootstrap: [AppComponent],
   exports: [ NumberFormatPipe]
 })

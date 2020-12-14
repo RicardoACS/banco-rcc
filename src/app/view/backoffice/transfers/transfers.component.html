@@ -15,7 +15,7 @@
                         <input type="text" [(ngModel)]="filter" class="form-control">
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn mt-10" (click)="openModal()">
+                        <button type="button" class="btn mt-10" (click)="openModal(null, 'modalNewDestination')">
                             <h5><i class="dw dw-add-user"></i>Agregar</h5>
                         </button>
                     </div>
@@ -39,7 +39,7 @@
                                 by John Doe
                             </td>
                             <td>Black</td>
-                            <td><button type="button" class="btn" ><h3><i class="dw dw-reload"></i></h3></button></td>
+                            <td><button type="button" class="btn" (click)="openModal(null, 'modalNewTransfer')" ><h3><i class="dw dw-reload"></i></h3></button></td>
                         </tr>
                     </tbody>
                 </table>

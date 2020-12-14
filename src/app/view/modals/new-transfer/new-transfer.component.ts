@@ -31,7 +31,7 @@ export class NewTransferComponent {
       .subscribe(msg => {
         switch (msg.action) {
           case "OPEN":
-            this.openModal(msg.data);
+            this.openModal(msg.data, msg.nameModal);
             break;
           case "CLOSE":
             this.closeModal();
@@ -44,7 +44,12 @@ export class NewTransferComponent {
   newTransferValidator(){
     this.newTransfer = this.fb.group({
       rut: [''],
-      ammount: ['', [Validators.required]]
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      account_number: ['', [Validators.required]],
+      bankId: ['', [Validators.required]],
+      ammount: ['', [Validators.required]],
+      description: ['']
     })
   }
 
@@ -59,10 +64,11 @@ export class NewTransferComponent {
     }
   }
 
-  openModal(data: any) {
-    console.log("Hola")
+  openModal(data: any, nameModal: string) {
     this.modal = data;
-    this.modalInstance = this._modalService.open(this.modalTemplateRef, { size: 'lg', backdrop: 'static' });
+    if (nameModal == "modalNewTransfer") {
+      this.modalInstance = this._modalService.open(this.modalTemplateRef, { size: 'lg', backdrop: 'static' });
+    }
   }
 
   closeModal() {
