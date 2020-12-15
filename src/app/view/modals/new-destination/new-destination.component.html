@@ -23,15 +23,17 @@
             [ngClass]="{ 'is-invalid': submitted && f.name.errors}" maxlength="100" >
           </div>
           <div class="col-md-6 mb-3 mb-md-0">
-            <label class="text-black" for="account">Número de Cuenta</label> 
-            <input type="number" formControlName="account" class="form-control" 
-            [ngClass]="{ 'is-invalid': submitted && f.account.errors}" maxlength="100" >
+            <label class="text-black" for="account_number">Número de Cuenta</label> 
+            <input type="number" formControlName="account_number" class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && f.account_number.errors}" maxlength="100" >
           </div>
           <div class="col-md-6 mb-3 mb-md-0">
-            <label class="text-black" for="bankId">Banco</label> 
-            <select formControlName="bankId" class="form-control"
-             [ngClass]="{ 'is-invalid': submitted && f.bankId.errors}" >
+            <label class="text-black" for="bank_id">Banco</label> 
+            <h6 *ngIf="!load.bank"> <i class="fa fa-spinner fa-spin"></i> Cargando los bancos</h6>
+            <select formControlName="bank_id" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f.bank_id.errors}" *ngIf="load.bank" >
               <option value="" disabled selected>Seleccione</option>
+              <option *ngFor="let bank of dataBanks" value="{{ bank.bank_id }}"> {{ bank.name }} </option>
             </select>
           </div>
           <div class="col-md-12 mb-3 mb-md-0">
@@ -45,7 +47,8 @@
         </div>
         <div class="row form-group">
           <div class="col-md-12">
-            <input type="submit" value="Registrar" class="btn btn-primary btn-md text-white">
+            <input type="submit" value="Registrar" class="btn btn-primary btn-md text-white" *ngIf="!load.createDestination">
+            <h6 *ngIf="load.createDestination"> <i class="fa fa-spinner fa-spin"></i> Creando el destinatario, espere por favor</h6>
           </div>
         </div>
       </form>

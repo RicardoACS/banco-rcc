@@ -1,3 +1,4 @@
+import { User } from './../../../class/user';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiBankService } from './../../../services/api-bank.service';
 import { RutValidator } from 'ng9-rut';
@@ -43,9 +44,9 @@ export class LoginComponent implements OnInit {
     }
 
     this.apiBank.login(this.login.value)
-      .subscribe((data: HttpErrorResponse) => {
+      .subscribe((data: User) => {
         console.log(data);
-        localStorage.setItem('user', JSON.stringify(data["data"]));
+        localStorage.setItem('user', JSON.stringify(data));
         this.router.navigate(["/cliente/dashboard/"]);       
       },
         (error: HttpErrorResponse) => {

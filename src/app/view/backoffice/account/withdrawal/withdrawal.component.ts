@@ -1,8 +1,11 @@
+import { User } from './../../../../class/user';
+import { Account } from 'src/app/class/account';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiBankService } from './../../../../services/api-bank.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-withdrawal',
@@ -11,19 +14,23 @@ import { Router } from '@angular/router';
 })
 export class WithdrawalComponent implements OnInit {
 
-  user: any;
-  dataAccount: any;
+  user: User = new User;
+  dataAccount: Account = new Account;
   withdrawal: FormGroup;
   submitted = false;
+  load = {
+    account: false,
+    createWithdrawal: false
+  }
 
   constructor(private fb: FormBuilder,
-    private router: Router, private apiBank: ApiBankService) {
+    private router: Router, private apiBank: ApiBankService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
     this.loginValidator();
     this.user = JSON.parse(localStorage.getItem("user"));
-    if (localStorage.getItem("user") == undefined || localStorage.getItem("user") == null) {
+    if (this.user == undefined || this.user == null) {
       this.router.navigate(["/"]);
     }
     this.getAccount();
@@ -31,7 +38,7 @@ export class WithdrawalComponent implements OnInit {
 
   loginValidator() {
     this.withdrawal = this.fb.group({
-      ammount: ['', [Validators.required, Validators.maxLength(15)]],
+      ammount: ['', [Validators.required, Validators.maxLength(15), Validators.min(0)]],
     })
   }
 
@@ -40,62 +47,63 @@ export class WithdrawalComponent implements OnInit {
   }
 
   onSubmit() {
+    this.load.createWithdrawal = true;
     this.submitted = true;
     if (this.withdrawal.invalid) {
       return;
     }
 
-    var request = { ammount: 0 };
     var ammount = this.withdrawal.get("ammount").value;
 
     if (ammount > this.dataAccount.ammount) {
-      console.log("Tirar Error");
+      this.toastr.warning(null, 'No tienes suficientes fondos para realizar esta operación');
       return;
     }
 
     if (ammount > 0) {
       ammount = -ammount;
     }
-    request.ammount = ammount;
-    
+
     var dataTransaction = {
-      ammount: this.withdrawal.get("ammount").value,
+      ammount: ammount,
+      account_id: this.dataAccount.account_id,
       transaction_type_id: 3,
-      account_id: this.dataAccount["account_id"]
+      destination_id: undefined,
+      description: null
     }
 
-    this.updateAmmount(this.dataAccount.number, request, dataTransaction);
+    this.createTransaction(dataTransaction);
   }
 
   getAccount() {
-    this.apiBank.getAccountByRut(this.user["rut"])
-      .subscribe((data: HttpErrorResponse) => {
-        console.log(data);
-        this.dataAccount = data["data"][0];
+    this.load.account = false;
+    this.apiBank.getAccountById(this.user.user_id)
+      .subscribe((data: Account) => {
+        this.dataAccount = data;
+        this.load.account = true;
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
-        });
-  }
-
-  updateAmmount(ammount, data, dataTransaction) {
-    this.apiBank.updateAmmount(ammount, data)
-      .subscribe((data: HttpErrorResponse) => {
-        this.createTransaction(dataTransaction)
-        this.getAccount();
-      },
-        (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastr.error(null, error.error.error);
         });
   }
 
   createTransaction(data) {
     this.apiBank.createTransaction(data)
       .subscribe((data: HttpErrorResponse) => {
+        this.toastr.success(null, 'Transacción realizada con éxito');
+        this.clearForm();
+        this.getAccount();
+        this.load.createWithdrawal = false;
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastr.error(null, error.error.error);
+          this.load.createWithdrawal = false;
         });
+  }
+
+  clearForm() {
+    this.withdrawal.reset();
+    this.submitted = false;
   }
 
 

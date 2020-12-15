@@ -7,9 +7,10 @@
         <div class="row clearfix">
             <div class="col-md-12 mb-30">
                 <div class="card card-box">
-                    <div class="card-body">
-                        <h5 class="card-title weight-500">Saldo Disponible </h5>
-                        <h6>${{dataAccount.ammount | numberFormat}}</h6>
+                    <div class="card-body" >
+                        <h5 class="card-title weight-500">Saldo Disponible</h5>
+                        <h6 *ngIf="load.account">${{dataAccount.ammount | numberFormat}}</h6>
+                        <h6 *ngIf="!load.account"> <i class="fa fa-spinner fa-spin"></i> Obteniendo tu saldo</h6>
                     </div>
                 </div>
             </div>
@@ -20,12 +21,13 @@
                         <form [formGroup]="recharge" (ngSubmit)="onSubmit()" #formDirective="ngForm">
                             <div class="form-group">
                                 <label>Monto a dépositar</label>
-                                <input type="number" formControlName="ammount" class="form-control" 
+                                <input type="number" formControlName="ammount" class="form-control" placeholder="5000"
                                 [ngClass]="{ 'is-invalid': submitted && f.ammount.errors}" maxlength="10">
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <input type="submit" value="Ingresar" class="btn btn-primary btn-md text-white">
+                                    <input type="submit" value="Dépositar" class="btn btn-primary btn-md text-white" *ngIf="!load.createRechage">
+                                    <h6 *ngIf="load.createRechage"> <i class="fa fa-spinner fa-spin"></i> Realizando el depósito, espere por favor</h6>
                                 </div>
                             </div>
                         </form>

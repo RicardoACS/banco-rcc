@@ -4,18 +4,25 @@
 
 <div class="main-container">
     <div class="pd-ltr-20">
+        <div class="card card-box mb-30">
+            <div class="card-body">
+                <h5 class="card-title weight-500">Saldo Disponible </h5>
+                <h6 *ngIf="load.account">${{dataAccount.ammount | numberFormat}}</h6>
+                <h6 *ngIf="!load.account"> <i class="fa fa-spinner fa-spin"></i> Obteniendo tu saldo</h6>
+            </div>
+        </div>
         <div class="card-box mb-30">
             <div class="card-body">
                 <div class="row mb-10">
                     <div class="col-md-6">
                         <h2 class="h4 pd-20">Destinatarios</h2>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" *ngIf="dataDestination.length > 0">
                         <label class="text-black" for="filter">Buscar</label> 
                         <input type="text" [(ngModel)]="filter" class="form-control">
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn mt-10" (click)="openModal(null, 'modalNewDestination')">
+                        <button type="button" class="btn mt-10" (click)="openModal(user, 'modalNewDestination')">
                             <h5><i class="dw dw-add-user"></i>Agregar</h5>
                         </button>
                     </div>
@@ -30,17 +37,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="table-plus">
-                                rick
-                            </td>
-                            <td>
-                                <h5 class="font-16">Shirt</h5>
-                                by John Doe
-                            </td>
-                            <td>Black</td>
-                            <td><button type="button" class="btn" (click)="openModal(null, 'modalNewTransfer')" ><h3><i class="dw dw-reload"></i></h3></button></td>
-                        </tr>
+                        <ng-container *ngIf="load.destinations">
+                            <tr *ngFor="let destination of dataDestination | filterNameDestination:filter">
+                                <td class="table-plus">
+                                    {{ destination.name }}
+                                </td>
+                                <td>
+                                    {{ destination.account_number }}
+                                </td>
+                                <td>{{ destination.bank.name }}</td>
+                                <td><button type="button" class="btn" (click)="openModal(destination, 'modalNewTransfer')" ><h3><i class="dw dw-reload"></i></h3></button></td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!load.destinations">
+                            <tr>
+                                <td colspan="4"><h6> <i class="fa fa-spinner fa-spin"></i> Buscando los destinatarios</h6></td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!load.destinations && dataDestination.length == 0">
+                            <tr>
+                                <td colspan="4"><h6> No tienes destinatarios disponibles</h6></td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </table>
             </div>

@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-8">
                     <h4 class="font-20 weight-500 mb-10 text-capitalize">
-                        Bienvenido <div class="weight-600 font-30 text-blue">{{user.name}}</div>
+                        Bienvenid@ <div class="weight-600 font-30 text-blue">{{user.name}}</div>
                     </h4>
                     <p class="font-18 max-width-600">
                         asgasgasgsag
@@ -25,16 +25,21 @@
                     <div class="card-body">
                         <h5 class="card-title weight-500">Resumen de tus productos </h5>
                         <div class="da-card">
-                            <div class="card card-box mb-10" *ngFor="let account of dataAccount">
+                            <div class="card card-box mb-10">
                                 <div class="card-body">
-                                    <div class="row">
+                                    <div class="row" *ngIf="isAccount">
                                         <div class="col-md-4">
                                             <h5 class="h5 mb-10">Cuenta Corriente</h5>
-                                            <p class="mb-0">{{account.number}}</p>
+                                            <p class="mb-0">{{dataAccount.number}}</p>
                                         </div>
                                         <div class="col-md-4">
                                             <h5 class="h5 mb-10">Saldo Disponible</h5>
-                                            <p class="mb-0">${{account.ammount | numberFormat}}</p>
+                                            <p class="mb-0">${{dataAccount.ammount | numberFormat}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="!isAccount">
+                                        <div class="col-md-12">
+                                            <h6> <i class="fa fa-spinner fa-spin"></i> Cargando tus productos</h6>
                                         </div>
                                     </div>
                                 </div>

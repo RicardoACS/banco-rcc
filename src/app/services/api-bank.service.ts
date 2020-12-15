@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class ApiBankService {
 
+  baseUrl = "http://localhost:5000";
+
   private headers = {
     headers: new HttpHeaders({
       'Accept': 'application/json'
@@ -15,26 +17,40 @@ export class ApiBankService {
   constructor(private httpClient: HttpClient) { }
 
   createUser(data) {
-    return this.httpClient.post("http://localhost:3000/v1/users", data, this.headers);
+    return this.httpClient.post(this.baseUrl + "/v1/users", data, this.headers);
   }
 
   login(data) {
-    return this.httpClient.post("http://localhost:3000/v1/users/login", data, this.headers);
+    return this.httpClient.post(this.baseUrl + "/v1/users/login", data, this.headers);
   }
 
-  getAccountByRut(rut) {
-    return this.httpClient.get("http://localhost:3000/v1/accounts/" + rut, this.headers);
-  }
-
-  updateAmmount(id, data) {
-    return this.httpClient.put("http://localhost:3000/v1/accounts/" + id, data, this.headers);
+  getAccountById(id) {
+    return this.httpClient.get(this.baseUrl + "/v1/accounts/" + id, this.headers);
   }
 
   createTransaction(data) {
-    return this.httpClient.post("http://localhost:3000/v1/transactions", data, this.headers);
+    return this.httpClient.post(this.baseUrl + "/v1/transactions", data, this.headers);
+  }
+
+  createTransferThirdParties(data) {
+    return this.httpClient.post(this.baseUrl + "/v1/transactions/third-parties", data, this.headers);
   }
 
   getLastMovements(id) {
-    return this.httpClient.get("http://localhost:3000/v1/transactions/" + id, this.headers);
+    return this.httpClient.get(this.baseUrl + "/v1/transactions/" + id, this.headers);
   }
+
+  getBanks() {
+    return this.httpClient.get(this.baseUrl + "/v1/banks/", this.headers);
+  }
+
+  getDestinations(id) { 
+    return this.httpClient.get(this.baseUrl + "/v1/destinations/" + id, this.headers);
+  }
+
+  createDestination(data) { 
+    return this.httpClient.post(this.baseUrl + "/v1/destinations", data, this.headers);
+  }
+
 }
+

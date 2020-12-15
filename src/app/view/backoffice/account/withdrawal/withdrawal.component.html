@@ -9,7 +9,8 @@
                 <div class="card card-box">
                     <div class="card-body">
                         <h5 class="card-title weight-500">Saldo Disponible </h5>
-                        <h6>${{dataAccount.ammount | numberFormat}}</h6>
+                        <h6 *ngIf="load.account">${{dataAccount.ammount | numberFormat}}</h6>
+                        <h6 *ngIf="!load.account"> <i class="fa fa-spinner fa-spin"></i> Obteniendo tu saldo</h6>
                     </div>
                 </div>
             </div>
@@ -19,13 +20,14 @@
                         <h5 class="card-title weight-500">Retira dinero de Cuenta Corriente </h5>
                         <form [formGroup]="withdrawal" (ngSubmit)="onSubmit()" #formDirective="ngForm">
                             <div class="form-group">
-                                <label>Monto a dépositar</label>
+                                <label>Monto a retirar</label>
                                 <input type="number" formControlName="ammount" class="form-control" 
                                 [ngClass]="{ 'is-invalid': submitted && f.ammount.errors}" maxlength="10">
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <input type="submit" value="Ingresar" class="btn btn-primary btn-md text-white">
+                                    <input type="submit" value="Retirar" class="btn btn-primary btn-md text-white" *ngIf="!load.createWithdrawal">
+                                    <h6 *ngIf="load.createWithdrawal"> <i class="fa fa-spinner fa-spin"></i> Realizando el retiro, espere por favor</h6>
                                 </div>
                             </div>
                         </form>

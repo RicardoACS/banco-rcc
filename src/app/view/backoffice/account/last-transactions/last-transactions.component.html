@@ -6,7 +6,8 @@
         <div class="card card-box mb-30">
             <div class="card-body">
                 <h5 class="card-title weight-500">Saldo Disponible </h5>
-                <h6>${{dataAccount.ammount | numberFormat}}</h6>
+                <h6 *ngIf="load.account">${{dataAccount.ammount | numberFormat}}</h6>
+                <h6 *ngIf="!load.account"> <i class="fa fa-spinner fa-spin"></i> Obteniendo tu saldo</h6>
             </div>
         </div>
         <div class="card-box mb-30">
@@ -23,18 +24,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let lt of dataLastMovements">
-                            <td class="table-plus">
-                                {{lt.created | date}}
-                            </td>
-                            <td>
-                                {{lt.type}}
-                            </td>
-                            <td>{{ lt.description }}</td>
-                            <td>{{ lt.name }}</td>
-                            <td *ngIf="lt.type == 'Cargo' || lt.type == 'Transferencias a terceros' ">-${{ lt.ammount | numberFormat }} <i class="icon-copy dw dw-diagonal-arrow-18"></i></td>
-                            <td *ngIf="lt.type == 'Abono'" style="color: green;">${{ lt.ammount | numberFormat }}<i class="icon-copy dw dw-diagonal-arrow-21"></i></td>
-                        </tr>
+                        <ng-container *ngIf="load.lastTransactions">
+                            <tr *ngFor="let lt of dataLastMovements" >
+                                <td class="table-plus">
+                                    {{lt.created | date}}
+                                </td>
+                                <td>
+                                    {{lt.transactions_type.description}}
+                                </td>
+                                <td>{{ lt.description }}</td>
+                                <td>{{ lt.destination != null ? lt.destination.name : null }}</td>
+                                <td *ngIf="lt.transactions_type.description == 'Cargo' || lt.transactions_type.description == 'Transferencias a terceros' ">-${{ lt.ammount | numberFormat }} <i class="icon-copy dw dw-diagonal-arrow-18"></i></td>
+                                <td *ngIf="lt.transactions_type.description == 'Abono'" style="color: green;">${{ lt.ammount | numberFormat }}<i class="icon-copy dw dw-diagonal-arrow-21"></i></td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!load.lastTransactions">
+                            <tr>
+                                <td colspan="6"><h6> <i class="fa fa-spinner fa-spin"></i> Cargando los últimos movimientos</h6></td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </table>
             </div>

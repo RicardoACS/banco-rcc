@@ -1,7 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
+import { Account } from 'src/app/class/account';
+import { User } from './../../../../class/user';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiBankService } from './../../../../services/api-bank.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Transaction } from 'src/app/class/transaction';
 
 @Component({
   selector: 'app-last-transactions',
@@ -10,17 +14,21 @@ import { Router } from '@angular/router';
 })
 export class LastTransactionsComponent implements OnInit {
 
-  user:any;
-  dataLastMovements:any;
-  dataAccount: any;
+  user: User = new User;
+  dataLastMovements: Transaction[];
+  dataAccount: Account = new Account;
+  load = {
+    account: false,
+    lastTransactions: false
+  }
+  constructor(private apiBank: ApiBankService, private router: Router, private toastr: ToastrService) {
 
-  constructor(private apiBank: ApiBankService, private router: Router) { 
-    
   }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("user"));
-    if (localStorage.getItem("user") == undefined || localStorage.getItem("user") == null) {
+    console.log(this.user)
+    if (this.user == undefined || this.user == null) {
       this.router.navigate(["/"]);
     }
     this.getLastMovements();
@@ -28,24 +36,26 @@ export class LastTransactionsComponent implements OnInit {
   }
 
   getLastMovements() {
-    this.apiBank.getLastMovements(this.user["user_id"])
-      .subscribe((data: HttpErrorResponse) => {
+    this.apiBank.getLastMovements(this.user.user_id)
+      .subscribe((data: Transaction[]) => {
         console.log(data);
-        this.dataLastMovements = data["data"];
-        console.log(this.dataLastMovements)
+        this.dataLastMovements = data;
+        this.load.lastTransactions = true;
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastr.error(null, error.error.error);
         });
   }
 
   getAccount() {
-    this.apiBank.getAccountByRut(this.user["rut"])
-      .subscribe((data: HttpErrorResponse) => {
-        this.dataAccount = data["data"][0];
+    this.load.account = false;
+    this.apiBank.getAccountById(this.user.user_id)
+      .subscribe((data: Account) => {
+        this.dataAccount = data;
+        this.load.account = true;
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastr.error(null, error.error.error);
         });
   }
 

@@ -5,6 +5,8 @@ import { AppRoutingModule, routingComponents } from "./app-routing.module";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Ng9RutModule  } from 'ng9-rut';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from './app.component';
 import { PreLoadComponent } from './view/backoffice/pre-load/pre-load.component';
@@ -25,6 +27,8 @@ import { NewDestinationComponent } from './view/modals/new-destination/new-desti
 import { NumberFormatPipe } from './utils/number-format.pipe';
 import { NewTransferComponent } from './view/modals/new-transfer/new-transfer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FilterNameDestinationPipe } from './utils/filter-name-destination.pipe';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,8 @@ import { HttpClientModule } from '@angular/common/http';
     WithdrawalComponent,
     NewDestinationComponent,
     NumberFormatPipe,
-    NewTransferComponent
+    NewTransferComponent,
+    FilterNameDestinationPipe
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,13 @@ import { HttpClientModule } from '@angular/common/http';
     NgApexchartsModule,
     NgbModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [ModalService, NumberFormatPipe, ApiBankService],
   bootstrap: [AppComponent],

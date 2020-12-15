@@ -47,8 +47,8 @@ export class RegisterComponent implements OnInit {
 
     this.apiBank.createUser(this.registerUser.value)
       .subscribe((data: HttpErrorResponse) => {
-        console.log(data["data"]);
-        localStorage.setItem('user', JSON.stringify(data["data"]));
+        console.log(data);
+        localStorage.setItem('user', JSON.stringify(data));
         this.router.navigate(["/cliente/dashboard/"]);
       },
         (error: HttpErrorResponse) => {

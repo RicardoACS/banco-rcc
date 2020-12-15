@@ -10,34 +10,35 @@
         <div class="row form-group">
           <div class="col-md-6 mb-3">
             <label class="text-black" for="fname">Rut</label>
-            <input type="text" formControlName="rut" formatRut class="form-control">
+            <input type="text" formControlName="rut" formatRut class="form-control" disabled>
           </div>
           <div class="col-md-6 mb-3">
             <label class="text-black" for="name">Nombre</label> 
             <input type="text" formControlName="name" class="form-control" 
-            [ngClass]="{ 'is-invalid': submitted && f.name.errors}" maxlength="100" >
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors}" maxlength="100" disabled >
           </div>
           <div class="col-md-12 mb-3">
             <label class="text-black" for="email">Email</label> 
             <input type="text" formControlName="email" class="form-control" 
-            [ngClass]="{ 'is-invalid': submitted && f.email.errors}" maxlength="100" >
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors}" maxlength="100" disabled >
           </div>
           <div class="col-md-6 mb-3">
             <label class="text-black" for="account">Número de Cuenta</label> 
             <input type="number" formControlName="account_number" class="form-control" 
-            [ngClass]="{ 'is-invalid': submitted && f.account_number.errors}" maxlength="100" >
+            [ngClass]="{ 'is-invalid': submitted && f.account_number.errors}" maxlength="100"  disabled>
           </div>
           <div class="col-md-6 mb-3">
             <label class="text-black" for="bankId">Banco</label> 
             <select formControlName="bankId" class="form-control"
-             [ngClass]="{ 'is-invalid': submitted && f.bankId.errors}" >
+             [ngClass]="{ 'is-invalid': submitted && f.bankId.errors}" disabled >
               <option value="" disabled selected>Seleccione</option>
+              <option *ngFor="let bank of dataBanks" value="{{ bank.bank_id }}"> {{ bank.name }} </option>
             </select>
           </div>
           <div class="col-md-12 mb-3">
             <label class="text-black" for="account">Monto a transferir</label> 
             <input type="number" formControlName="ammount" class="form-control" 
-                [ngClass]="{ 'is-invalid': submitted && f.ammount.errors}" maxlength="100">
+                [ngClass]="{ 'is-invalid': submitted && f.ammount.errors}" min="0" maxlength="100">
           </div>
           <div class="col-md-12 mb-3">
             <label class="text-black" for="description">Comentario</label> 
