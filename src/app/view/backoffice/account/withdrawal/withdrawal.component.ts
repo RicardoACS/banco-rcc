@@ -50,6 +50,7 @@ export class WithdrawalComponent implements OnInit {
     this.load.createWithdrawal = true;
     this.submitted = true;
     if (this.withdrawal.invalid) {
+      this.load.createWithdrawal = false;
       return;
     }
 

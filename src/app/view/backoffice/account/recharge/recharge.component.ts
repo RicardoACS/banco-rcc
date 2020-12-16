@@ -50,6 +50,7 @@ export class RechargeComponent implements OnInit {
     this.load.createRechage = true;
     this.submitted = true;
     if (this.recharge.invalid) {
+      this.load.createRechage = false;
       return;
     }
 
