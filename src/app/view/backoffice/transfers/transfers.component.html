@@ -27,40 +27,42 @@
                         </button>
                     </div>
                 </div>
-                <table class="data-table table nowrap table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Cuenta Destino</th>
-                            <th>Banco</th>
-                            <th>Transferir</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngIf="load.destinations">
-                            <tr *ngFor="let destination of dataDestination | filterNameDestination:filter">
-                                <td class="table-plus">
-                                    {{ destination.name }}
-                                </td>
-                                <td>
-                                    {{ destination.account_number }}
-                                </td>
-                                <td>{{ destination.bank.name }}</td>
-                                <td><button type="button" class="btn" (click)="openModal(destination, 'modalNewTransfer')" ><h3><i class="dw dw-reload"></i></h3></button></td>
-                            </tr>
-                        </ng-container>
-                        <ng-container *ngIf="!load.destinations">
+                <div style="overflow-x:auto;">
+                    <table class="data-table table nowrap">
+                        <thead>
                             <tr>
-                                <td colspan="4"><h6> <i class="fa fa-spinner fa-spin"></i> Buscando los destinatarios</h6></td>
+                                <th>Nombre</th>
+                                <th>Cuenta Destino</th>
+                                <th>Banco</th>
+                                <th>Transferir</th>
                             </tr>
-                        </ng-container>
-                        <ng-container *ngIf="load.destinations && dataDestination.length == 0">
-                            <tr>
-                                <td colspan="4"><h6> No tienes destinatarios disponibles</h6></td>
-                            </tr>
-                        </ng-container>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="load.destinations">
+                                <tr *ngFor="let destination of dataDestination | filterNameDestination:filter">
+                                    <td class="table-plus">
+                                        {{ destination.name }}
+                                    </td>
+                                    <td>
+                                        {{ destination.account_number }}
+                                    </td>
+                                    <td>{{ destination.bank.name }}</td>
+                                    <td><button type="button" class="btn" (click)="openModal(destination, 'modalNewTransfer')" ><h3><i class="dw dw-reload"></i></h3></button></td>
+                                </tr>
+                            </ng-container>
+                            <ng-container *ngIf="!load.destinations">
+                                <tr>
+                                    <td colspan="4"><h6> <i class="fa fa-spinner fa-spin"></i> Buscando los destinatarios</h6></td>
+                                </tr>
+                            </ng-container>
+                            <ng-container *ngIf="load.destinations && dataDestination.length == 0">
+                                <tr>
+                                    <td colspan="4"><h6> No tienes destinatarios disponibles</h6></td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
