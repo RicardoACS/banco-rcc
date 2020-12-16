@@ -57,6 +57,7 @@ export class WithdrawalComponent implements OnInit {
 
     if (ammount > this.dataAccount.ammount) {
       this.toastr.warning(null, 'No tienes suficientes fondos para realizar esta operación');
+      this.load.createWithdrawal = false;
       return;
     }
 

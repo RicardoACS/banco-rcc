@@ -54,7 +54,6 @@ export class NewDestinationComponent {
   }
 
   newDestinationValidator() {
-    console.log(this.modal)
     this.newDestination = this.fb.group({
       rut: ['', [Validators.required, Validators.maxLength(15), this.rutValidator]],
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -115,6 +114,11 @@ export class NewDestinationComponent {
   }
 
   closeModal() {
+    this.modalInstance ? this.modalInstance.close() : null;
+  }
+
+  closeModalReload() {
+    window.location.reload();
     this.modalInstance ? this.modalInstance.close() : null;
   }
 

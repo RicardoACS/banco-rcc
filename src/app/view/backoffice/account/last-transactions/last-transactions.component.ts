@@ -27,7 +27,6 @@ export class LastTransactionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("user"));
-    console.log(this.user)
     if (this.user == undefined || this.user == null) {
       this.router.navigate(["/"]);
     }
@@ -38,7 +37,6 @@ export class LastTransactionsComponent implements OnInit {
   getLastMovements() {
     this.apiBank.getLastMovements(this.user.user_id)
       .subscribe((data: Transaction[]) => {
-        console.log(data);
         this.dataLastMovements = data;
         this.load.lastTransactions = true;
       },

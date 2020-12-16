@@ -68,12 +68,12 @@ body:after {
     -webkit-box-shadow: none !important;
     box-shadow: none !important; }
   .btn.btn-primary {
-    background: #fd7e14;
-    border-color: #fd7e14;
+    background: rgb(35, 58, 97);
+    border-color: rgb(35, 58, 97);
     color: #fff; }
     .btn.btn-primary:hover {
-      background: #fd7e14;
-      border-color: #fd7e14;
+      background: rgb(35, 58, 97);
+      border-color: rgb(35, 58, 97);
       color: #fff; }
     .btn.btn-primary.btn-black--hover:hover {
       background: #666666;
@@ -1590,7 +1590,7 @@ body:after {
   text-transform: uppercase; }
 
 .section-title {
-  color: #fd7e14;
+  color: rgb(189, 30, 35);
   font-size: 40px;
   font-weight: 900; }
   @media (max-width: 991.98px) {

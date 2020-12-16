@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { User } from './../../../class/user';
 import { Bank } from './../../../class/bank';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -19,19 +20,24 @@ import { Component } from '@angular/core';
 export class NewTransferComponent {
 
   @ViewChild("modalNewTransfer") modalTemplateRef: ElementRef;
-  newTransfer:FormGroup;
+  newTransfer: FormGroup;
   submitted = false;
   modalInstance: NgbModalRef;
   modal: any;
-  dataBanks:Bank[];
+  dataBanks: Bank[];
   subscription: Subscription;
   user: User;
+  ammountAccount: any;
+  load = {
+    createTransfer: false
+  }
 
   constructor(
     private _modalService: NgbModal,
     private _myModalSerive: ModalService,
     private fb: FormBuilder,
-    private apiBank: ApiBankService
+    private apiBank: ApiBankService,
+    private toastr: ToastrService
   ) {
     this.subscription = this._myModalSerive
       .getMyModalSubjectRef()
@@ -45,11 +51,11 @@ export class NewTransferComponent {
             break;
         }
       });
-      this.getBanks();
-      this.user = JSON.parse(localStorage.getItem("user"));
+    this.getBanks();
+    this.user = JSON.parse(localStorage.getItem("user"));
   }
 
-  newTransferValidator(){
+  newTransferValidator() {
     this.newTransfer = this.fb.group({
       rut: [this.modal.rut],
       name: [this.modal.name, [Validators.required]],
@@ -61,33 +67,45 @@ export class NewTransferComponent {
       transaction_type_id: [1],
       destination_id: [this.modal.destination_id],
       account_id: [this.modal.account_id],
-      name_origen: [this.user.name]
+      name_origen: [this.user != undefined ? this.user.name : null]
     })
   }
-  
+
 
   get f() {
     return this.newTransfer.controls;
   }
 
   onSubmit() {
+    this.load.createTransfer = true;
     this.submitted = true;
     if (this.newTransfer.invalid) {
+      this.load.createTransfer = false;
       return;
     }
-    
-    //falta validacion del precio
+
+    if (this.newTransfer.get("ammount").value > Number(this.ammountAccount)) {
+      this.toastr.warning(null, 'No tienes suficientes fondos para realizar esta operación');
+      this.load.createTransfer = false;
+      return;
+    }
 
     this.apiBank.createTransferThirdParties(this.newTransfer.value)
       .subscribe((data: any) => {
-        console.log(data)
+        this.toastr.success(null, "Transacción realizada con éxito");
+        this.load.createTransfer = false;
+        this.clearForm();
+        this.closeModalReload();
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastr.error(null, error.error.error);
+          this.load.createTransfer = false;
         });
+  }
 
-
-
+  clearForm() {
+    this.newTransfer.reset();
+    this.submitted = false;
   }
 
   getBanks() {
@@ -96,20 +114,25 @@ export class NewTransferComponent {
         this.dataBanks = data;
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastr.error(null, error.error.error);
         });
   }
 
   openModal(data: any, nameModal: string) {
     this.modal = data;
-    console.log("modal", this.modal)
     if (nameModal == "modalNewTransfer") {
       this.newTransferValidator();
+      this.ammountAccount = localStorage.getItem("ammount_account");
       this.modalInstance = this._modalService.open(this.modalTemplateRef, { size: 'lg', backdrop: 'static' });
     }
   }
 
   closeModal() {
+    this.modalInstance ? this.modalInstance.close() : null;
+  }
+
+  closeModalReload() {
+    window.location.reload();
     this.modalInstance ? this.modalInstance.close() : null;
   }
 

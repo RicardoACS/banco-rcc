@@ -1,5 +1,5 @@
 <!-- <app-pre-load></app-pre-load> -->
-
+<app-header-bankoffice></app-header-bankoffice>
 <app-side-bar></app-side-bar>
 
 <div class="main-container">
@@ -54,7 +54,7 @@
                                 <td colspan="4"><h6> <i class="fa fa-spinner fa-spin"></i> Buscando los destinatarios</h6></td>
                             </tr>
                         </ng-container>
-                        <ng-container *ngIf="!load.destinations && dataDestination.length == 0">
+                        <ng-container *ngIf="load.destinations && dataDestination.length == 0">
                             <tr>
                                 <td colspan="4"><h6> No tienes destinatarios disponibles</h6></td>
                             </tr>

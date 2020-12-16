@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ApiBankService {
 
-  baseUrl = "http://localhost:5000";
+  baseUrl = "http://ec2-3-236-47-203.compute-1.amazonaws.com:5000";
 
   private headers = {
     headers: new HttpHeaders({

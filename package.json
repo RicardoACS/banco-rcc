@@ -26,6 +26,7 @@
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
+    "ng-angular9-datatable": "^0.9.13",
     "ng-apexcharts": "^1.5.6",
     "ng2-rut": "^0.3.2",
     "ng9-rut": "0.0.6",

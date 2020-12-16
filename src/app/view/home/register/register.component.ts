@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { ApiBankService } from './../../../services/api-bank.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -14,11 +15,15 @@ export class RegisterComponent implements OnInit {
 
   registerUser: FormGroup;
   submitted = false;
+  load = {
+    register: false
+  }
 
   constructor(private fb: FormBuilder,
     private rutValidator: RutValidator,
     private router: Router,
-    private apiBank: ApiBankService) {
+    private apiBank: ApiBankService,
+    private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -40,24 +45,24 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.load.register = true;
     this.submitted = true;
     if (this.registerUser.invalid) {
+      this.load.register = false;
       return;
     }
 
     this.apiBank.createUser(this.registerUser.value)
       .subscribe((data: HttpErrorResponse) => {
-        console.log(data);
         localStorage.setItem('user', JSON.stringify(data));
-        this.router.navigate(["/cliente/dashboard/"]);
+        this.toastr.success(null, "Creado con éxito, Pronto entrarás a tu banco online");
+        setTimeout(() => {
+          this.router.navigate(["/cliente/dashboard/"]);
+        }, 4500);
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
-          // if (error.error != undefined && error.error != null) {
-          //   this.toastr.showError(null, error.error.message);
-          // } else {
-          //   this.toastr.showError(null, error.message);
-          // }
+          this.load.register = false;
+          this.toastr.error(null, error.error.error);
         });
   }
 }

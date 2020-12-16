@@ -15,21 +15,21 @@
                         <span class="micon dw dw-house-1"></span><span class="mtext">Inicio</span>
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
+                <li class="dropdown" >
+                    <a href="javascript:;" class="dropdown-toggle" (click)="openDropDown('account')" >
                         <span class="micon dw dw-money"></span><span class="mtext">Cuenta</span>
                     </a>
-                    <ul class="submenu" style="display: block;">
-                        <li><a routerLink="/cliente/cuenta/recargar-saldo" routerLinkActive="active">Recargar de Saldo</a></li>
+                    <ul class="submenu" [ngStyle]="{'display': status.accountType}">
+                        <li><a routerLink="/cliente/cuenta/recargar-saldo" routerLinkActive="active">Recargar Saldo</a></li>
                         <li><a routerLink="/cliente/cuenta/retiro-saldo" routerLinkActive="active">Retiro de Saldo</a></li>
-                        <li><a routerLink="/cliente/cuenta/ultimos-movimientos" routerLinkActive="active">Saldos y últimos movimientos</a></li>
+                        <li><a routerLink="/cliente/cuenta/ultimos-movimientos" routerLinkActive="active">últimos movimientos</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
+                    <a href="javascript:;" class="dropdown-toggle" (click)="openDropDown('transaction')">
                         <span class="micon dw dw-right-arrow-8"></span><span class="mtext">Transferencias</span>
                     </a>
-                    <ul class="submenu" style="display: block;">
+                    <ul class="submenu" [ngStyle]="{'display': status.transactionType}">
                         <li><a routerLink="/cliente/transferencias" routerLinkActive="active">A terceros</a></li>
                     </ul>
                 </li>

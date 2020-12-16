@@ -49,6 +49,7 @@ export class TransfersComponent implements OnInit {
     this.apiBank.getAccountById(this.user.user_id)
       .subscribe((data: Account) => {
         this.dataAccount = data;
+        localStorage.setItem("ammount_account", data.ammount.toString())
         this.load.account = true;
       },
         (error: HttpErrorResponse) => {
@@ -58,7 +59,7 @@ export class TransfersComponent implements OnInit {
 
   getDestination() {
     this.apiBank.getDestinations(this.user.account[0].account_id)
-      .subscribe((data: Destination[]) => {
+      .subscribe((data: Destination[]) => {   
         this.dataDestination = data;
         this.load.destinations = true;
       },

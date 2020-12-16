@@ -72,7 +72,7 @@ export class RechargeComponent implements OnInit {
         this.load.account = true;
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastr.error(null, error.error.error);
         });
   }
 

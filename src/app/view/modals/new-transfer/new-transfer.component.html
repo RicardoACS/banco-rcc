@@ -48,7 +48,8 @@
         </div>
         <div class="row form-group">
           <div class="col-md-12">
-            <input type="submit" value="Transferir" class="btn btn-primary btn-md text-white">
+            <input type="submit" value="Transferir" class="btn btn-primary btn-md text-white" *ngIf="!load.createTransfer">
+            <h6 *ngIf="load.createTransfer"> <i class="fa fa-spinner fa-spin"></i> Realizando la transferencia, espere por favor</h6>
           </div>
         </div>
       </form>

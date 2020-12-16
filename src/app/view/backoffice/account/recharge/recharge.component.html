@@ -1,5 +1,5 @@
 <!-- <app-pre-load></app-pre-load> -->
-
+<app-header-bankoffice></app-header-bankoffice>
 <app-side-bar></app-side-bar>
 
 <div class="main-container">
@@ -17,10 +17,10 @@
             <div class="col-md-12 mb-30">
                 <div class="card card-box">
                     <div class="card-body">
-                        <h5 class="card-title weight-500">Déposita dinero en tu Cuenta Corriente </h5>
+                        <h5 class="card-title weight-500">Depósita dinero en tu Cuenta Corriente </h5>
                         <form [formGroup]="recharge" (ngSubmit)="onSubmit()" #formDirective="ngForm">
                             <div class="form-group">
-                                <label>Monto a dépositar</label>
+                                <label>Monto a depósitar</label>
                                 <input type="number" formControlName="ammount" class="form-control" placeholder="5000"
                                 [ngClass]="{ 'is-invalid': submitted && f.ammount.errors}" maxlength="10">
                             </div>

@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { User } from './../../../class/user';
 import { ApiBankService } from './../../../services/api-bank.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private apiBank: ApiBankService) { }
+    private apiBank: ApiBankService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("user"));
@@ -29,13 +31,13 @@ export class DashboardComponent implements OnInit {
   }
 
   getAccount() {
-    this.apiBank.getAccountById(this.user["account"][0]["account_id"])
+    this.apiBank.getAccountById(this.user.user_id)
       .subscribe((data: Account) => {
         this.dataAccount = data;
         this.isAccount = true;
       },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastr.error(null, error.error.error);
         });
   }
 

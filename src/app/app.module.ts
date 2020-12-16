@@ -29,6 +29,8 @@ import { NewTransferComponent } from './view/modals/new-transfer/new-transfer.co
 import { HttpClientModule } from '@angular/common/http';
 import { FilterNameDestinationPipe } from './utils/filter-name-destination.pipe';
 import { ToastrModule } from 'ngx-toastr';
+import { HeaderBankofficeComponent } from './view/menu/header-bankoffice/header-bankoffice.component';
+import { HeaderLoginRegisterComponent } from './view/home/header-login-register/header-login-register.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ToastrModule } from 'ngx-toastr';
     NewDestinationComponent,
     NumberFormatPipe,
     NewTransferComponent,
-    FilterNameDestinationPipe
+    FilterNameDestinationPipe,
+    HeaderBankofficeComponent,
+    HeaderLoginRegisterComponent
   ],
   imports: [
     BrowserModule,
