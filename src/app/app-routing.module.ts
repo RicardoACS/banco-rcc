@@ -33,5 +33,7 @@ export const routingComponents = [
   LoginComponent,
   DashboardComponent,
   LastTransactionsComponent,
-  TransfersComponent
+  TransfersComponent,
+  RechargeComponent,
+  WithdrawalComponent
 ];

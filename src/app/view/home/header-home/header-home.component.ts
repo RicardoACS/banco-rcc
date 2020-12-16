@@ -11,5 +11,4 @@ export class HeaderHomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

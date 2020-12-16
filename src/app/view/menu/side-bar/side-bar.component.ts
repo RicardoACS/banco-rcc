@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,22 +14,39 @@ export class SideBarComponent implements OnInit {
     transaction: undefined,
     transactionType: 'none',
   }
+  sidebarMenu = {
+    class: "",
+    status: undefined
+  };
 
-  constructor() { }
+
+  constructor(private router: Router) { 
+  }
 
   ngOnInit(): void {
   }
 
   openDropDown(name) {
-    console.log(name, this.status)
     if (name == "account") {
-      console.log("entre en account", this.status.account)
       this.status.account = this.status.account == undefined ?  false : this.status.account ?  false : true;
       this.status.accountType = this.status.account == undefined ?  'block' : this.status.account ? 'none' : 'block';
     } else if (name == "transaction") {
       this.status.transaction = this.status.transaction == undefined ?  false : this.status.transaction ?  false : true;
       this.status.transactionType = this.status.transaction == undefined ?  'block' : this.status.transaction ? 'none' : 'block';
     }
+  }
+
+  closeSession(){
+    localStorage.removeItem("user");
+    localStorage.removeItem("ammount_account");
+    localStorage.clear();
+    this.router.navigate(["/"]);
+  }
+
+  sideBar(){
+    this.sidebarMenu.status = undefined;
+    this.sidebarMenu.class = "";    
+    this.sidebarMenu.class = this.sidebarMenu.status == undefined ? "open" : this.sidebarMenu.status ? "" : "open";
   }
 
 }

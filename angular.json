@@ -52,9 +52,7 @@
               "src/assets/scripts/bank/main.js",
               "src/assets/scripts/script.min.js",
               "src/assets/scripts/process.js",
-              "src/assets/scripts/layout-settings.js",
-              "src/assets/scripts/dashboard.js",
-              "node_modules/apexcharts/dist/apexcharts.min.js"
+              "src/assets/scripts/layout-settings.js"
             ]
           },
           "configurations": {
