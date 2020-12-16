@@ -1,0 +1,56 @@
+
+<!-- <app-pre-load></app-pre-load> -->
+
+<app-side-bar></app-side-bar>
+
+<div class="main-container">
+    <div class="pd-ltr-20">
+        <div class="card-box pd-20 height-100-p mb-30">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <img src="../../../assets/images/banner-img.png" alt="">
+                </div>
+                <div class="col-md-8">
+                    <h4 class="font-20 weight-500 mb-10 text-capitalize">
+                        Bienvenid@ <div class="weight-600 font-30 text-blue">{{user.name}}</div>
+                    </h4>
+                    <p class="font-18 max-width-600">
+                        ¡Estamos felices de verte de nuevo por aquí!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-md-12 mb-30">
+                <div class="card card-box">
+                    <div class="card-body">
+                        <h5 class="card-title weight-500">Resumen de tus productos </h5>
+                        <div class="da-card">
+                            <div class="card card-box mb-10">
+                                <div class="card-body">
+                                    <div class="row" *ngIf="isAccount">
+                                        <div class="col-md-4">
+                                            <h5 class="h5 mb-10">Cuenta Corriente</h5>
+                                            <p class="mb-0">{{dataAccount.number}}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h5 class="h5 mb-10">Saldo Disponible</h5>
+                                            <p class="mb-0">${{dataAccount.ammount | numberFormat}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="!isAccount">
+                                        <div class="col-md-12">
+                                            <h6> <i class="fa fa-spinner fa-spin"></i> Cargando tus productos</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

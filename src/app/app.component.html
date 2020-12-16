@@ -1,0 +1,16 @@
+<div class="site-wrap">
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+        <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body">
+      <ul>
+        <li><a [routerLink]="['/nuevo-cliente']" routerLinkActive="active" class="nav-link"><h6>QUIERO SER CLIENTE</h6></a></li>
+        <li><a routerLink="/login" routerLinkActive="active" class="nav-link"><h6>INGRESAR</h6></a></li>
+      </ul>
+    </div>
+  </div>
+  <router-outlet  outer-outlet></router-outlet>
+</div>

@@ -1,0 +1,70 @@
+<app-header-login-register></app-header-login-register>
+
+<div class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 col-lg-7">
+        <img src="../../../../assets/images/register-page-img.png" alt="">
+      </div>
+      <div class="col-md-6 col-lg-5">
+        <form [formGroup]="registerUser" (ngSubmit)="onSubmit()" #formDirective="ngForm" class="p-5 bg-white">
+          <div class="login-title">
+            <h2 class="text-center section-title">HAZTE CLIENTE</h2>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label class="text-black" for="fname">Rut</label>
+              <input type="text" formControlName="rut" formatRut class="form-control" placeholder="11.111.111-1"
+              [ngClass]="{ 'is-invalid': submitted && f.rut.errors}" maxlength="15">
+              <div *ngIf="submitted && f.rut.errors">
+                <div *ngIf="f.rut.errors.required">Campo Requerido</div>
+                <div *ngIf="f.rut.errors.maxlength">El máximo de caracteres es 15</div>
+                <div *ngIf="f.rut.errors.invalidRut">Ingrese un rut válido</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="text-black" for="name">Nombre</label>
+              <input type="text" formControlName="name" class="form-control" placeholder="Nombre"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors}" maxlength="100">
+              <div *ngIf="submitted && f.name.errors">
+                <div *ngIf="f.name.errors.required">Campo Requerido</div>
+                <div *ngIf="f.name.errors.maxlength">El máximo de caracteres es 100</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <label class="text-black" for="email">Email</label> 
+              <input type="email" formControlName="email" class="form-control" placeholder="correo@bancorcc.cl"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors}" maxlength="100">
+              <div *ngIf="submitted && f.email.errors">
+                <div *ngIf="f.email.errors.required">Campo Requerido</div>
+                <div *ngIf="f.email.errors.maxlength">El máximo de caracteres es 100</div>
+                <div *ngIf="f.email.errors.email">Debe ingresar un email válido</div>
+              </div>
+            </div>
+            <div class="col-md-12"> 
+              <label class="text-black" for="password">Contraseña</label> 
+              <input type="password" formControlName="password" class="form-control" placeholder="*******"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors}" maxlength="10" >
+              <div *ngIf="submitted && f.password.errors">
+                <div *ngIf="f.password.errors.required">Campo Requerido</div>
+                <div *ngIf="f.password.errors.maxlength">El máximo de caracteres es 10</div>
+                <div *ngIf="f.password.errors.minlength">El minimo de caracteres es 6</div>
+                <div *ngIf="f.password.errors.pattern">La contraseña debe contener al menos 2 mayúsculas, 2 dígitos y 2 minúsculas</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <input type="submit" value="Registrarse" class="btn btn-primary btn-lg btn-block" *ngIf="!load.register">
+              <h6 *ngIf="load.register"> <i class="fa fa-spinner fa-spin"></i> Creando usuario, espere por favor</h6>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
