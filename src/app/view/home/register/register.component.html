@@ -23,7 +23,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <label class="text-black" for="name">Nombre</label>
+              <label class="text-black" for="name">Nombre completo</label>
               <input type="text" formControlName="name" class="form-control" placeholder="Nombre"
               [ngClass]="{ 'is-invalid': submitted && f.name.errors}" maxlength="100">
               <div *ngIf="submitted && f.name.errors">

@@ -20,7 +20,7 @@ export class SideBarComponent implements OnInit {
   };
 
 
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,25 +28,25 @@ export class SideBarComponent implements OnInit {
 
   openDropDown(name) {
     if (name == "account") {
-      this.status.account = this.status.account == undefined ?  false : this.status.account ?  false : true;
-      this.status.accountType = this.status.account == undefined ?  'block' : this.status.account ? 'none' : 'block';
+      this.status.account = this.status.account == undefined ? false : this.status.account ? false : true;
+      this.status.accountType = this.status.account == undefined ? 'block' : this.status.account ? 'none' : 'block';
     } else if (name == "transaction") {
-      this.status.transaction = this.status.transaction == undefined ?  false : this.status.transaction ?  false : true;
-      this.status.transactionType = this.status.transaction == undefined ?  'block' : this.status.transaction ? 'none' : 'block';
+      this.status.transaction = this.status.transaction == undefined ? false : this.status.transaction ? false : true;
+      this.status.transactionType = this.status.transaction == undefined ? 'block' : this.status.transaction ? 'none' : 'block';
     }
   }
 
-  closeSession(){
+  closeSession() {
     localStorage.removeItem("user");
     localStorage.removeItem("ammount_account");
     localStorage.clear();
     this.router.navigate(["/"]);
   }
 
-  sideBar(){
-    this.sidebarMenu.status = undefined;
-    this.sidebarMenu.class = "";    
-    this.sidebarMenu.class = this.sidebarMenu.status == undefined ? "open" : this.sidebarMenu.status ? "" : "open";
+  sideBar() {
+    this.sidebarMenu.status = this.sidebarMenu.status == undefined ? false : this.sidebarMenu.status ? false : true;
+    this.sidebarMenu.class = this.sidebarMenu.status == undefined ? 'open' : this.sidebarMenu.status ? '' : 'open';
+
   }
 
 }
